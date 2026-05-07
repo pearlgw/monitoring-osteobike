@@ -6,6 +6,8 @@ use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PasienController;
 use App\Http\Controllers\PengingatTerapiController;
 use App\Http\Controllers\ProfileController;
+use App\Mail\TestMail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -35,4 +37,9 @@ Route::get('/laporan', [LaporanController::class, 'laporan_guest'])->name('lapor
 Route::post('/laporan/filter', [LaporanController::class, 'filter_guest'])->name('laporan.filter');
 Route::post('/laporan/download', [LaporanController::class, 'download'])->name('laporan.download');
 
+// Route::get('/test-email', function () {
+//     Mail::to('gayuhnata02@gmail.com')->send(new TestMail());
+
+//     return 'Email terkirim';
+// });
 require __DIR__ . '/auth.php';

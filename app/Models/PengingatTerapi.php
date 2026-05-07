@@ -9,6 +9,7 @@ class PengingatTerapi extends Model
     protected $fillable = [
         'user_id',
         'tanggal_terapi_selanjutnya',
+        'status',
     ];
 
     protected $casts = [
