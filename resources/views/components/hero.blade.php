@@ -23,10 +23,16 @@
                 <span class="text-[#0EA5A4] text-xs font-medium tracking-wide">Terapi Tulang Berbasis Teknologi</span>
             </div>
 
-            <h1 class="text-[44px] font-black text-white leading-[1.05] tracking-tight mb-4"
-                style="font-family: 'Syne', sans-serif;">
-                Jaga Kesehatan <span class="text-[#0EA5A4]">Tulang</span> dengan <span
-                    class="text-[#F59E0B]">Osteobike</span>
+            <h1 class="font-black text-white tracking-tight mb-4"
+                style="font-family: 'Syne', sans-serif; font-size: clamp(32px, 5vw, 52px); line-height: 1.08; letter-spacing: -0.03em;">
+                OSTEOBIKE<br>
+                <span
+                    style="font-size: 0.65em; font-weight: 700; letter-spacing: -0.01em; color: #0EA5A4;">Osteoarthritis</span>
+                <span
+                    style="font-size: 0.65em; font-weight: 500; letter-spacing: -0.01em; color: rgba(255,255,255,0.85);">
+                    Smart </span>
+                <span style="font-size: 0.65em; font-weight: 700; letter-spacing: -0.01em; color: #F59E0B;">Therapy Bike
+                    for Rehabilitation</span>
             </h1>
             <p class="text-white/60 text-base font-light leading-relaxed mb-7 max-w-[440px]">
                 Solusi terapi berbasis sepeda statis untuk membantu mengurangi nyeri, meningkatkan kekuatan otot, dan
@@ -76,7 +82,7 @@
                 <div class="flex flex-col">
                     <span class="text-white font-bold text-[13px]" style="font-family: 'Syne', sans-serif;">Sesi
                         Aktif</span>
-                    <span class="text-white/45 text-[10px]">32 menit berlangsung</span>
+                    <span class="text-white/45 text-[10px]"></span>
                 </div>
             </div>
 
@@ -89,16 +95,20 @@
                 class="absolute -bottom-3 -right-3 flex items-center gap-2 bg-[rgba(12,26,46,0.9)] border border-[rgba(14,165,164,0.3)] rounded-[10px] px-3 py-2 z-10">
                 <div
                     class="w-7 h-7 bg-[rgba(245,158,11,0.18)] rounded-lg flex items-center justify-center flex-shrink-0">
-                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.2"
+                    {{-- <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.2"
                         stroke-linecap="round">
                         <path
                             d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg> --}}
+                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.2"
+                        stroke-linecap="round">
+                        <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
                     </svg>
                 </div>
                 <div class="flex flex-col">
-                    <span class="text-white font-bold text-[13px]" style="font-family: 'Syne', sans-serif;">Skor
-                        Tulang +4</span>
-                    <span class="text-white/45 text-[10px]">vs minggu lalu</span>
+                    <span class="text-white font-bold text-[13px]" style="font-family: 'Syne', sans-serif;">Sesi
+                        Pasif</span>
+                    <span class="text-white/45 text-[10px]"></span>
                 </div>
             </div>
 

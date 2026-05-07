@@ -37,17 +37,16 @@
 
                     <h2 class="font-black text-[30px] text-white leading-tight tracking-tight mb-3"
                         style="font-family:'Syne',sans-serif;">
-                        Monitor Kesehatan <span class="text-[#0EA5A4]">Tulangmu</span> Setiap Hari
+                        Monitor Kesehatan <span class="text-[#0EA5A4]">Sendi</span> Setiap Hari
                     </h2>
                     <p class="text-white/55 text-sm font-light leading-relaxed">
-                        Masuk ke dashboard untuk melihat perkembangan terapi, sesi bersepeda, dan laporan kepadatan tulang
-                        Anda.
+                        Lihat perkembangan latihan sendi dan kemajuan terapi Anda dengan mudah melalui dashboard OSTEOBIKE.
                     </p>
                 </div>
 
                 {{-- Feature list --}}
                 <div class="relative z-10 space-y-3">
-                    @foreach ([['icon' => 'M22 12h-4l-3 9L9 3l-3 9H2', 'title' => 'Real-time monitoring', 'desc' => 'sesi terapi aktif'], ['icon' => 'M3 3h18v18H3zM8 17V13M12 17V9M16 17V13', 'title' => 'Laporan mingguan', 'desc' => 'perkembangan tulang'], ['icon' => 'M12 22c5.5-3 8-6.5 8-10V5l-8-3-8 3v7c0 3.5 2.5 7 8 10z', 'title' => 'Riwayat lengkap', 'desc' => 'seluruh sesi terapi']] as $feat)
+                    @foreach ([['icon' => 'M22 12h-4l-3 9L9 3l-3 9H2', 'title' => 'Real-time monitoring', 'desc' => 'sesi terapi aktif dan pasif'], ['icon' => 'M3 3h18v18H3zM8 17V13M12 17V9M16 17V13', 'title' => 'Laporan mingguan', 'desc' => 'perkembangan sendi'], ['icon' => 'M12 22c5.5-3 8-6.5 8-10V5l-8-3-8 3v7c0 3.5 2.5 7 8 10z', 'title' => 'Riwayat lengkap', 'desc' => 'seluruh sesi terapi']] as $feat)
                         <div class="flex items-center gap-3">
                             <div
                                 class="w-7 h-7 rounded-lg bg-[rgba(14,165,164,0.15)] border border-[rgba(14,165,164,0.25)] flex items-center justify-center flex-shrink-0">

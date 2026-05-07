@@ -127,7 +127,7 @@
                         'nama' => 'Menik Dwi Kurniatie S.Si.,M.Biotech',
                         'no' => 'NIP: 0686.11.2018.728',
                         'peran' => 'Pembimbing 1',
-                        'foto' => '/images/tim/anggota1.jpg',
+                        'foto' => '/images/tim/menik.jpeg',
                         'accent' => '#0EA5A4',
                     ],
                     [
