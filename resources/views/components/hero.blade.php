@@ -20,7 +20,7 @@
             <div
                 class="inline-flex items-center gap-2 bg-[rgba(14,165,164,0.12)] border border-[rgba(14,165,164,0.3)] rounded-full px-3.5 py-1.5 mb-5">
                 <span class="w-1.5 h-1.5 bg-[#0EA5A4] rounded-full animate-pulse"></span>
-                <span class="text-[#0EA5A4] text-xs font-medium tracking-wide">Terapi Tulang Berbasis Teknologi</span>
+                <span class="text-[#0EA5A4] text-xs font-medium tracking-wide">Terapi Osteobike Berbasis Teknologi</span>
             </div>
 
             <h1 class="font-black text-white tracking-tight mb-4"

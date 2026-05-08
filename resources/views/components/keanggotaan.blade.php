@@ -115,7 +115,7 @@
                 Tim Kami
             </span>
         </h2>
-        <p class="text-center text-gray-400 text-sm mb-12">Mahasiswa yang mengembangkan Osteobike dari nol hingga siap
+        <p class="text-center text-gray-400 text-sm mb-12">Dosen & Mahasiswa yang mengembangkan Osteobike dari nol hingga siap
             pakai.</p>
 
         {{-- Grid anggota --}}
