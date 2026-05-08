@@ -47,7 +47,6 @@ class DetailTerapiController extends Controller
             'rpm'            => 'nullable|integer|min:0',
             'durasi'         => 'nullable|integer|min:0',
             'rom'            => 'nullable|string|max:50',
-            'status'         => 'required|in:belum,sudah,selesai',
         ]);
 
         DetailTerapi::create($request->only([
@@ -59,7 +58,6 @@ class DetailTerapiController extends Controller
             'rpm',
             'durasi',
             'rom',
-            'status',
         ]));
 
         return redirect()->route('terapi.index')
@@ -83,7 +81,6 @@ class DetailTerapiController extends Controller
             'rpm'            => 'nullable|integer|min:0',
             'durasi'         => 'nullable|integer|min:0',
             'rom'            => 'nullable|string|max:50',
-            'status'         => 'required|in:belum,sudah,selesai',
         ]);
 
         $terapi->update($request->only([
@@ -95,7 +92,6 @@ class DetailTerapiController extends Controller
             'rpm',
             'durasi',
             'rom',
-            'status',
         ]));
 
         return redirect()->route('terapi.index')

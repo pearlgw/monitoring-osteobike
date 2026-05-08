@@ -20,8 +20,8 @@ return new class extends Migration
             $table->enum('metode', ['Pasif', 'Aktif']);
             $table->integer('rpm')->nullable();
             $table->integer('durasi')->nullable();
-            $table->string('rom')->nullable();
-            $table->enum('status', ['belum', 'sudah', 'selesai'])->default('belum');
+            $table->integer('rom')->nullable();
+            $table->enum('status', ['belum', 'sudah'])->default('belum');
             $table->timestamps();
         });
     }

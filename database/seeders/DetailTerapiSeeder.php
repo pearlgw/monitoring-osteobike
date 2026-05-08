@@ -33,8 +33,8 @@ class DetailTerapiSeeder extends Seeder
                     'metode' => rand(0, 1) ? 'Aktif' : 'Pasif',
                     'rpm' => rand(30, 55),
                     'durasi' => rand(20, 60),
-                    'rom' => rand(70, 110) . '°',
-                    'status' => collect(['belum', 'sudah', 'selesai'])->random(),
+                    'rom' => rand(70, 110),
+                    'status' => 'sudah',
                     'created_at' => now(),
                     'updated_at' => now(),
                 ];

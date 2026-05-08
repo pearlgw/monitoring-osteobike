@@ -180,8 +180,7 @@
 
         /* ─── GRAFIK ─── */
         .chart-img {
-            width: 100%;
-            display: block;
+            width: 80%;
             border: 1px solid #ccc;
         }
 
@@ -327,7 +326,7 @@
         </div>
         <div class="kop-info">
             <div class="kop-nama">Osteobike</div>
-            <div class="kop-tagline">Sistem Monitoring Terapi Sepeda Stasioner</div>
+            <div class="kop-tagline">Osteoarthritis Smart Therapy Bike for Rehabilitation</div>
             {{-- <div class="kop-kontak">Telp. (0274) 000-000 &nbsp;|&nbsp; Email: info@osteobike.id &nbsp;|&nbsp; --}}
             {{-- www.osteobike.id</div> --}}
         </div>
@@ -392,58 +391,25 @@
 
         {{-- II. Grafik & Tabel Durasi --}}
         <div class="sub-title">II.&nbsp;&nbsp;Grafik Durasi Terapi</div>
-        <img class="chart-img" src="{{ $chart_durasi_img }}" alt="Grafik Durasi">
+        <div style="text-align: center;">
+            <img class="chart-img" src="{{ $chart_durasi_img }}" alt="Grafik Durasi">
+        </div>
         <div class="chart-caption">Gambar 1. Grafik rata-rata durasi terapi per tanggal (menit)</div>
-
-        <table class="data-table">
-            <thead>
-                <tr>
-                    <th style="width:32px;">No.</th>
-                    <th>Nama Pasien</th>
-                    <th>Kode</th>
-                    <th>ROM (°)</th>
-                    <th>RPM</th>
-                    <th>Durasi (mnt)</th>
-                    <th>Berat (kg)</th>
-                    <th>Tanggal</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($terapiData as $i => $item)
-                    <tr>
-                        <td>{{ $i + 1 }}</td>
-                        <td class="left">{{ $pasien->nama_lengkap }}</td>
-                        <td>{{ $pasien->kode_pasien }}</td>
-                        <td>{{ $item->rom ?? '-' }}</td>
-                        <td>{{ $item->rpm ?? '-' }}</td>
-                        <td>{{ $item->durasi ?? '-' }}</td>
-                        <td>{{ $item->berat_badan ?? '-' }}</td>
-                        <td>{{ \Carbon\Carbon::parse($item->tanggal_terapi)->isoFormat('D MMM YYYY') }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-            {{-- <tfoot>
-                <tr>
-                    <td colspan="5" class="tfoot-label">Rata-rata Durasi</td>
-                    <td>{{ round($terapiData->avg('durasi'), 1) }} mnt</td>
-                    <td colspan="2"></td>
-                </tr>
-            </tfoot> --}}
-        </table>
-
-        <hr class="divider">
 
         {{-- III. Grafik & Tabel RPM --}}
         <div class="sub-title">III.&nbsp;&nbsp;Grafik RPM Terapi</div>
-        <img class="chart-img" src="{{ $chart_rpm_img }}" alt="Grafik RPM">
+        <div style="text-align: center;">
+            <img class="chart-img" src="{{ $chart_rpm_img }}" alt="Grafik RPM">
+        </div>
         <div class="chart-caption">Gambar 2. Grafik rata-rata RPM terapi per tanggal (rotasi per menit)</div>
+
+        <hr class="divider">
 
         <table class="data-table">
             <thead>
                 <tr>
                     <th style="width:32px;">No.</th>
-                    <th>Nama Pasien</th>
-                    <th>Kode</th>
+                    <th>Diagnosa</th>
                     <th>ROM (°)</th>
                     <th>RPM</th>
                     <th>Durasi (mnt)</th>
@@ -455,8 +421,7 @@
                 @foreach ($terapiData as $i => $item)
                     <tr>
                         <td>{{ $i + 1 }}</td>
-                        <td class="left">{{ $pasien->nama_lengkap }}</td>
-                        <td>{{ $pasien->kode_pasien }}</td>
+                        <td class="left">{{ $item->diagnosa ?? '-' }}</td>
                         <td>{{ $item->rom ?? '-' }}</td>
                         <td>{{ $item->rpm ?? '-' }}</td>
                         <td>{{ $item->durasi ?? '-' }}</td>
@@ -465,16 +430,7 @@
                     </tr>
                 @endforeach
             </tbody>
-            {{-- <tfoot>
-                <tr>
-                    <td colspan="4" class="tfoot-label">Rata-rata RPM</td>
-                    <td>{{ round($terapiData->avg('rpm'), 1) }}</td>
-                    <td colspan="3"></td>
-                </tr>
-            </tfoot> --}}
         </table>
-
-        <hr class="divider">
 
         {{-- Penutup --}}
         <div class="penutup">

@@ -50,7 +50,6 @@
                     <option value="">Semua Status</option>
                     <option value="belum" {{ request('status') === 'belum' ? 'selected' : '' }}>Belum</option>
                     <option value="sudah" {{ request('status') === 'sudah' ? 'selected' : '' }}>Sudah</option>
-                    <option value="selesai" {{ request('status') === 'selesai' ? 'selected' : '' }}>Selesai</option>
                 </select>
 
                 {{-- Filter Metode --}}

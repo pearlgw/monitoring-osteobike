@@ -33,7 +33,7 @@
                     Osteo<span class="text-[#0EA5A4]">bike</span>
                 </span>
                 <span class="text-[10px] text-slate-400 uppercase tracking-widest mt-0.5">
-                    Bone Health Monitor
+                    Monitoring Sendi
                 </span>
             </div>
 
