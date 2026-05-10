@@ -5,23 +5,12 @@
 @section('content')
 
     {{-- Header --}}
-    <div class="flex items-start justify-between mb-5">
+    <div class="mb-5">
         <div>
             <h1 class="font-black text-xl text-slate-900">Dashboard</h1>
             <p class="text-xs text-slate-400 mt-0.5">{{ now()->isoFormat('dddd, D MMMM YYYY') }} · Data diperbarui baru saja
             </p>
         </div>
-        <form method="POST">
-            @csrf
-            <button type="submit"
-                class="inline-flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white text-[13px] font-medium px-4 py-2.5 rounded-[9px] transition hover:-translate-y-px">
-                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="3" y="3" width="18" height="18" rx="2" />
-                </svg>
-                Stop Terapi
-            </button>
-        </form>
     </div>
 
     {{-- ===== BARIS 1: Stat Cards + Pasien Terbaru ===== --}}
@@ -143,6 +132,20 @@
 
     </div>
 
+    <div class="flex justify-center mt-6">
+        <form method="POST">
+            @csrf
+            <button type="submit"
+                class="inline-flex items-center justify-center gap-3 bg-red-500 hover:bg-red-600 text-white text-base font-bold px-10 py-4 rounded-[10px] shadow-sm transition hover:-translate-y-px min-w-[260px]">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                </svg>
+                Emergency Stop
+            </button>
+        </form>
+    </div>
+
     @push('scripts')
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
         <script>
@@ -159,9 +162,39 @@
                 const durasi = {!! json_encode($chartDurasi) !!};
                 const rpm = {!! json_encode($chartRpm) !!};
 
+                const axisEndpointLabels = {
+                    id: 'axisEndpointLabels',
+                    afterDraw(chart) {
+                        const {
+                            ctx,
+                            chartArea: {
+                                left,
+                                right,
+                                top,
+                                bottom
+                            }
+                        } = chart;
+
+                        ctx.save();
+                        ctx.fillStyle = '#64748b';
+                        ctx.font = '600 12px sans-serif';
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        ctx.fillText('Y', left, top - 10);
+                        ctx.fillText('X', right + 12, bottom);
+                        ctx.restore();
+                    }
+                };
+
                 const commonOptions = {
                     responsive: true,
                     maintainAspectRatio: false,
+                    layout: {
+                        padding: {
+                            top: 16,
+                            right: 20
+                        }
+                    },
                     plugins: {
                         legend: {
                             display: false
@@ -179,6 +212,15 @@
                         x: {
                             grid: {
                                 color: 'rgba(0,0,0,0.04)'
+                            },
+                            title: {
+                                display: true,
+                                text: 'Tanggal',
+                                color: '#64748b',
+                                font: {
+                                    size: 12,
+                                    weight: '600'
+                                }
                             },
                             ticks: {
                                 font: {
@@ -204,9 +246,39 @@
                     }
                 };
 
+                const chartOptions = (yAxisTitle, tooltipLabel) => ({
+                    ...commonOptions,
+                    plugins: {
+                        ...commonOptions.plugins,
+                        tooltip: {
+                            ...commonOptions.plugins.tooltip,
+                            callbacks: {
+                                label: tooltipLabel
+                            }
+                        }
+                    },
+                    scales: {
+                        ...commonOptions.scales,
+                        y: {
+                            ...commonOptions.scales.y,
+                            max: 60,
+                            title: {
+                                display: true,
+                                text: yAxisTitle,
+                                color: '#64748b',
+                                font: {
+                                    size: 12,
+                                    weight: '600'
+                                }
+                            }
+                        }
+                    }
+                });
+
                 // Grafik Durasi
                 new Chart(document.getElementById('durasiChart'), {
                     type: 'line',
+                    plugins: [axisEndpointLabels],
                     data: {
                         labels,
                         datasets: [{
@@ -222,31 +294,14 @@
                             tension: 0.4
                         }]
                     },
-                    options: {
-                        ...commonOptions,
-                        plugins: {
-                            ...commonOptions.plugins,
-                            tooltip: {
-                                ...commonOptions.plugins.tooltip,
-                                callbacks: {
-                                    label: (ctx) => ctx.parsed.y === 0 ? 'Durasi: libur' : 'Durasi: ' + ctx.parsed
-                                        .y + ' menit'
-                                }
-                            }
-                        },
-                        scales: {
-                            ...commonOptions.scales,
-                            y: {
-                                ...commonOptions.scales.y,
-                                max: 60
-                            }
-                        }
-                    }
+                    options: chartOptions('Menit', (ctx) => ctx.parsed.y === 0 ? 'Durasi: libur' : 'Durasi: ' +
+                        ctx.parsed.y + ' menit')
                 });
 
                 // Grafik RPM
                 new Chart(document.getElementById('rpmChart'), {
                     type: 'line',
+                    plugins: [axisEndpointLabels],
                     data: {
                         labels,
                         datasets: [{
@@ -264,26 +319,8 @@
                             tension: 0.4
                         }]
                     },
-                    options: {
-                        ...commonOptions,
-                        plugins: {
-                            ...commonOptions.plugins,
-                            tooltip: {
-                                ...commonOptions.plugins.tooltip,
-                                callbacks: {
-                                    label: (ctx) => ctx.parsed.y === 0 ? 'RPM: libur' : 'RPM: ' + ctx.parsed.y +
-                                        ' rpm'
-                                }
-                            }
-                        },
-                        scales: {
-                            ...commonOptions.scales,
-                            y: {
-                                ...commonOptions.scales.y,
-                                max: 60
-                            }
-                        }
-                    }
+                    options: chartOptions('RPM', (ctx) => ctx.parsed.y === 0 ? 'RPM: libur' : 'RPM: ' +
+                        ctx.parsed.y + ' rpm')
                 });
             })();
         </script>

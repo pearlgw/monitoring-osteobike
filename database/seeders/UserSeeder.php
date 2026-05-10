@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
                 'kode_pasien' => null,
                 'nama_lengkap' => 'Admin Osteobike',
                 'email' => 'osteobike@gmail.com',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('osteobikebme22'),
                 'role' => 'admin',
                 'umur' => null,
                 'alamat' => null,

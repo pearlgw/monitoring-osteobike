@@ -35,7 +35,8 @@
                         <label class="block text-[11px] text-slate-500 font-medium mb-1.5 tracking-wide uppercase">
                             Tanggal Mulai
                         </label>
-                        <input type="date" name="tanggal_start" value="{{ old('tanggal_start', $tanggal_start ?? '') }}"
+                        <input type="date" name="tanggal_start" id="tanggalStart"
+                            value="{{ old('tanggal_start', $tanggal_start ?? '') }}" max="{{ now()->toDateString() }}"
                             class="w-full border border-slate-200 rounded-[9px] px-3 py-2.5 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#0EA5A4]/30 focus:border-[#0EA5A4] transition" />
                         @error('tanggal_start')
                             <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
@@ -47,7 +48,9 @@
                         <label class="block text-[11px] text-slate-500 font-medium mb-1.5 tracking-wide uppercase">
                             Tanggal Akhir
                         </label>
-                        <input type="date" name="tanggal_akhir" value="{{ old('tanggal_akhir', $tanggal_akhir ?? '') }}"
+                        <input type="date" name="tanggal_akhir" id="tanggalAkhir"
+                            value="{{ old('tanggal_akhir', $tanggal_akhir ?? now()->toDateString()) }}"
+                            min="{{ old('tanggal_start', $tanggal_start ?? '') }}" max="{{ now()->toDateString() }}"
                             class="w-full border border-slate-200 rounded-[9px] px-3 py-2.5 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#0EA5A4]/30 focus:border-[#0EA5A4] transition" />
                         @error('tanggal_akhir')
                             <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
@@ -161,6 +164,36 @@
 @endsection
 
 @push('scripts')
+    <script>
+        (function() {
+            const tanggalStart = document.getElementById('tanggalStart');
+            const tanggalAkhir = document.getElementById('tanggalAkhir');
+
+            if (!tanggalStart || !tanggalAkhir) {
+                return;
+            }
+
+            const today = tanggalAkhir.max;
+            tanggalStart.max = today;
+            tanggalAkhir.max = today;
+
+            function syncTanggalAkhirMin() {
+                tanggalAkhir.min = tanggalStart.value || '';
+
+                if (tanggalAkhir.value > today) {
+                    tanggalAkhir.value = today;
+                }
+
+                if (tanggalStart.value && tanggalAkhir.value && tanggalAkhir.value < tanggalStart.value) {
+                    tanggalAkhir.value = '';
+                }
+            }
+
+            syncTanggalAkhirMin();
+            tanggalStart.addEventListener('change', syncTanggalAkhirMin);
+        })();
+    </script>
+
     @isset($chartLabels)
         @if (count($chartLabels) > 0)
             <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
@@ -170,9 +203,40 @@
                     const durasi = {!! json_encode($chartDurasi) !!};
                     const rpm = {!! json_encode($chartRpm) !!};
 
+                    const axisEndpointLabels = {
+                        id: 'axisEndpointLabels',
+                        afterDraw(chart) {
+                            const {
+                                ctx,
+                                chartArea: {
+                                    left,
+                                    right,
+                                    top,
+                                    bottom
+                                }
+                            } = chart;
+
+                            ctx.save();
+                            ctx.fillStyle = '#64748b';
+                            ctx.font = '600 12px sans-serif';
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'middle';
+                            ctx.fillText('Y', left, top - 10);
+                            ctx.fillText('X', right + 12, bottom);
+                            ctx.restore();
+                        }
+                    };
+
                     const commonOptions = {
                         responsive: true,
                         maintainAspectRatio: false,
+                        layout: {
+                            padding: {
+                                top: 28,
+                                right: 36,
+                                bottom: 8
+                            }
+                        },
                         plugins: {
                             legend: {
                                 display: false
@@ -190,6 +254,15 @@
                             x: {
                                 grid: {
                                     color: 'rgba(0,0,0,0.04)'
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Tanggal',
+                                    color: '#64748b',
+                                    font: {
+                                        size: 12,
+                                        weight: '600'
+                                    }
                                 },
                                 ticks: {
                                     font: {
@@ -216,9 +289,38 @@
                         }
                     };
 
+                    const chartOptions = (yAxisTitle, tooltipLabel) => ({
+                        ...commonOptions,
+                        scales: {
+                            ...commonOptions.scales,
+                            y: {
+                                ...commonOptions.scales.y,
+                                title: {
+                                    display: true,
+                                    text: yAxisTitle,
+                                    color: '#64748b',
+                                    font: {
+                                        size: 12,
+                                        weight: '600'
+                                    }
+                                }
+                            }
+                        },
+                        plugins: {
+                            ...commonOptions.plugins,
+                            tooltip: {
+                                ...commonOptions.plugins.tooltip,
+                                callbacks: {
+                                    label: tooltipLabel
+                                }
+                            }
+                        }
+                    });
+
                     // Grafik Durasi
                     new Chart(document.getElementById('durasiChart'), {
                         type: 'line',
+                        plugins: [axisEndpointLabels],
                         data: {
                             labels,
                             datasets: [{
@@ -234,24 +336,14 @@
                                 tension: 0.4
                             }]
                         },
-                        options: {
-                            ...commonOptions,
-                            plugins: {
-                                ...commonOptions.plugins,
-                                tooltip: {
-                                    ...commonOptions.plugins.tooltip,
-                                    callbacks: {
-                                        label: (ctx) => ctx.parsed.y === 0 ?
-                                            'Durasi: tidak ada data' : 'Durasi: ' + ctx.parsed.y + ' menit'
-                                    }
-                                }
-                            }
-                        }
+                        options: chartOptions('Menit', (ctx) => ctx.parsed.y === 0 ?
+                            'Durasi: tidak ada data' : 'Durasi: ' + ctx.parsed.y + ' menit')
                     });
 
                     // Grafik RPM
                     new Chart(document.getElementById('rpmChart'), {
                         type: 'line',
+                        plugins: [axisEndpointLabels],
                         data: {
                             labels,
                             datasets: [{
@@ -269,19 +361,8 @@
                                 tension: 0.4
                             }]
                         },
-                        options: {
-                            ...commonOptions,
-                            plugins: {
-                                ...commonOptions.plugins,
-                                tooltip: {
-                                    ...commonOptions.plugins.tooltip,
-                                    callbacks: {
-                                        label: (ctx) => ctx.parsed.y === 0 ?
-                                            'RPM: tidak ada data' : 'RPM: ' + ctx.parsed.y + ' rpm'
-                                    }
-                                }
-                            }
-                        }
+                        options: chartOptions('RPM', (ctx) => ctx.parsed.y === 0 ?
+                            'RPM: tidak ada data' : 'RPM: ' + ctx.parsed.y + ' rpm')
                     });
                 })();
             </script>

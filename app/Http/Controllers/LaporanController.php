@@ -9,6 +9,14 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class LaporanController extends Controller
 {
+    private function formatChartDateLabel($tanggal): string
+    {
+        $hariIndo = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
+        $date = \Carbon\Carbon::parse($tanggal);
+
+        return $hariIndo[$date->dayOfWeek] . ' ' . $date->format('d/m');
+    }
+
     public function index()
     {
         return view('pages.laporan.index');
@@ -47,7 +55,7 @@ class LaporanController extends Controller
         $chartRpm    = [];
 
         foreach ($grouped as $tanggal => $rows) {
-            $chartLabels[] = \Carbon\Carbon::parse($tanggal)->format('d/m');
+            $chartLabels[] = $this->formatChartDateLabel($tanggal);
             $chartDurasi[] = round($rows->avg('durasi'), 0);
             $chartRpm[]    = round($rows->avg('rpm'), 0);
         }
@@ -125,7 +133,7 @@ class LaporanController extends Controller
         $chartRpm    = [];
 
         foreach ($grouped as $tanggal => $rows) {
-            $chartLabels[] = \Carbon\Carbon::parse($tanggal)->format('d/m');
+            $chartLabels[] = $this->formatChartDateLabel($tanggal);
             $chartDurasi[] = round($rows->avg('durasi'), 0);
             $chartRpm[]    = round($rows->avg('rpm'), 0);
         }
