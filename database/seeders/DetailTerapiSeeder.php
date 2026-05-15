@@ -32,7 +32,7 @@ class DetailTerapiSeeder extends Seeder
                     'diagnosa' => 'Terapi ke-' . $i . ' pasien #' . $userId,
                     'metode' => rand(0, 1) ? 'Aktif' : 'Pasif',
                     'rpm' => rand(30, 55),
-                    'durasi' => rand(20, 60),
+                    'durasi' => rand(3, 30),
                     'rom' => rand(70, 110),
                     'status' => 'sudah',
                     'created_at' => now(),

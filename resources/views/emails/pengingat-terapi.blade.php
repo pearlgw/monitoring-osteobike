@@ -57,7 +57,7 @@
                                             style="font-size:11px; color:#9ca3af; margin:0 0 4px; text-transform:uppercase; letter-spacing:0.06em;">
                                             Jadwal Anda</p>
                                         <p style="font-size:14px; font-weight:500; color:#111827; margin:0;">
-                                            Hari ini - Sesi Terapi Rutin
+                                            Hari ini - Sesi terapi rutin fisioterapis menggunakan osteobike
                                         </p>
                                     </td>
                                 </tr>

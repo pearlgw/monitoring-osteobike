@@ -55,7 +55,7 @@
                 </div>
 
                 {{-- Stats --}}
-                <div class="grid grid-cols-3 gap-4 pt-4">
+                {{-- <div class="grid grid-cols-3 gap-4 pt-4">
                     <div class="text-center p-4 rounded-2xl" style="background-color: rgba(14,165,164,0.07);">
                         <p class="font-extrabold text-2xl" style="color: #0EA5A4;">4</p>
                         <p class="text-xs text-gray-500 mt-1">Anggota Tim</p>
@@ -68,7 +68,7 @@
                         <p class="font-extrabold text-2xl" style="color: #F59E0B;">100%</p>
                         <p class="text-xs text-gray-500 mt-1">Aman & Terukur</p>
                     </div>
-                </div>
+                </div> --}}
             </div>
 
             {{-- Ilustrasi / Gambar --}}
@@ -90,10 +90,10 @@
                     </div>
                 </div>
                 {{-- Badge float --}}
-                <div class="absolute -bottom-4 -left-4 px-4 py-2 rounded-xl shadow-md text-white text-xs font-semibold"
+                {{-- <div class="absolute -bottom-4 -left-4 px-4 py-2 rounded-xl shadow-md text-white text-xs font-semibold"
                     style="background: linear-gradient(135deg, #0EA5A4, #3B82F6);">
                     Inovasi Teknologi Kesehatan
-                </div>
+                </div> --}}
             </div>
 
         </div>

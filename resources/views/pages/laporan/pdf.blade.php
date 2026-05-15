@@ -100,6 +100,7 @@
 
         .kop-tagline {
             font-size: 9.5px;
+            font-style: italic;
             color: #444;
             margin-top: 2px;
         }

@@ -29,9 +29,9 @@
                 <span
                     style="font-size: 0.65em; font-weight: 700; letter-spacing: -0.01em; color: #0EA5A4;">Osteoarthritis</span>
                 <span
-                    style="font-size: 0.65em; font-weight: 500; letter-spacing: -0.01em; color: rgba(255,255,255,0.85);">
+                    style="font-size: 0.65em; font-weight: 500; letter-spacing: -0.01em; color: #0EA5A4;;">
                     Smart </span>
-                <span style="font-size: 0.65em; font-weight: 700; letter-spacing: -0.01em; color: #F59E0B;">Therapy Bike
+                <span style="font-size: 0.65em; font-weight: 700; letter-spacing: -0.01em; color: #0EA5A4;">Therapy Bike
                     for Rehabilitation</span>
             </h1>
             <p class="text-white/60 text-base font-light leading-relaxed mb-7 max-w-[440px]">

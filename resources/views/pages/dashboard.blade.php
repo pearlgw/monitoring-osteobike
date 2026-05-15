@@ -107,12 +107,12 @@
         {{-- Grafik Durasi --}}
         <div class="bg-white rounded-xl border border-slate-200 p-4">
             <div class="flex items-center justify-between mb-4">
-                <h2 class="font-bold text-sm text-slate-900">Grafik Durasi (7 Hari)</h2>
+                <h2 class="font-bold text-sm text-slate-900">Grafik Durasi Exercise (7 Hari)</h2>
                 <span class="flex items-center gap-1.5 text-xs text-slate-500">
-                    <span class="w-2.5 h-2.5 rounded-sm bg-[#0EA5A4]"></span>menit
+                    <span class="w-2.5 h-2.5 rounded-sm bg-[#0EA5A4]"></span>Menit
                 </span>
             </div>
-            <div style="position:relative;width:100%;height:220px;">
+            <div style="position:relative;width:100%;height:240px;">
                 <canvas id="durasiChart" role="img" aria-label="Grafik durasi terapi 7 hari terakhir"></canvas>
             </div>
         </div>
@@ -120,12 +120,12 @@
         {{-- Grafik RPM --}}
         <div class="bg-white rounded-xl border border-slate-200 p-4">
             <div class="flex items-center justify-between mb-4">
-                <h2 class="font-bold text-sm text-slate-900">Grafik RPM (7 Hari)</h2>
+                <h2 class="font-bold text-sm text-slate-900">Grafik Rpm(Revolutions Per Minute) Exercise (7 Hari)</h2>
                 <span class="flex items-center gap-1.5 text-xs text-slate-500">
-                    <span class="w-2.5 h-2.5 rounded-sm border-2 border-dashed border-[#3B82F6]"></span>rpm
+                    <span class="w-2.5 h-2.5 rounded-sm border-2 border-dashed border-[#3B82F6]"></span>RPM
                 </span>
             </div>
-            <div style="position:relative;width:100%;height:220px;">
+            <div style="position:relative;width:100%;height:240px;">
                 <canvas id="rpmChart" role="img" aria-label="Grafik RPM terapi 7 hari terakhir"></canvas>
             </div>
         </div>
@@ -150,17 +150,9 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
         <script>
             (function() {
-                const today = new Date();
-                const days = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
-                const labels = {!! json_encode($chartLabels) !!};
-                // for (let i = 6; i >= 0; i--) {
-                //     const d = new Date(today);
-                //     d.setDate(today.getDate() - i);
-                //     labels.push(days[d.getDay()] + ' ' + d.getDate() + '/' + (d.getMonth() + 1));
-                // }
-
-                const durasi = {!! json_encode($chartDurasi) !!};
-                const rpm = {!! json_encode($chartRpm) !!};
+                    const labels = {!! json_encode($chartLabels) !!};
+                    const durasi = {!! json_encode($chartDurasi) !!};
+                    const rpm = {!! json_encode($chartRpm) !!};
 
                 const axisEndpointLabels = {
                     id: 'axisEndpointLabels',
@@ -177,7 +169,7 @@
 
                         ctx.save();
                         ctx.fillStyle = '#64748b';
-                        ctx.font = '600 12px sans-serif';
+                        ctx.font = '600 13px sans-serif';
                         ctx.textAlign = 'center';
                         ctx.textBaseline = 'middle';
                         ctx.fillText('Y', left, top - 10);
@@ -191,8 +183,9 @@
                     maintainAspectRatio: false,
                     layout: {
                         padding: {
-                            top: 16,
-                            right: 20
+                            top: 28,
+                            right: 36,
+                            bottom: 8
                         }
                     },
                     plugins: {
@@ -215,29 +208,30 @@
                             },
                             title: {
                                 display: true,
-                                text: 'Tanggal',
+                                text: 'Sesi Exercise',
                                 color: '#64748b',
                                 font: {
-                                    size: 12,
+                                    size: 13,
                                     weight: '600'
                                 }
                             },
                             ticks: {
                                 font: {
-                                    size: 11
+                                    size: 12
                                 },
                                 color: '#94a3b8',
-                                maxRotation: 0
+                                maxRotation: 45
                             }
                         },
                         y: {
                             min: 0,
+                            max: 60,
                             grid: {
                                 color: 'rgba(0,0,0,0.04)'
                             },
                             ticks: {
                                 font: {
-                                    size: 11
+                                    size: 12
                                 },
                                 color: '#94a3b8',
                                 stepSize: 10
@@ -246,7 +240,7 @@
                     }
                 };
 
-                const chartOptions = (yAxisTitle, tooltipLabel) => ({
+                const chartOptions = (yAxisTitle, tooltipLabel, yMax, yStepSize, yAxisTitleFontSize = 13) => ({
                     ...commonOptions,
                     plugins: {
                         ...commonOptions.plugins,
@@ -261,13 +255,17 @@
                         ...commonOptions.scales,
                         y: {
                             ...commonOptions.scales.y,
-                            max: 60,
+                            max: yMax,
+                            ticks: {
+                                ...commonOptions.scales.y.ticks,
+                                stepSize: yStepSize
+                            },
                             title: {
                                 display: true,
                                 text: yAxisTitle,
                                 color: '#64748b',
                                 font: {
-                                    size: 12,
+                                    size: yAxisTitleFontSize,
                                     weight: '600'
                                 }
                             }
@@ -294,8 +292,8 @@
                             tension: 0.4
                         }]
                     },
-                    options: chartOptions('Menit', (ctx) => ctx.parsed.y === 0 ? 'Durasi: libur' : 'Durasi: ' +
-                        ctx.parsed.y + ' menit')
+                    options: chartOptions('Durasi (menit) Exercise', (ctx) => ctx.parsed.y === 0 ?
+                        'Durasi: tidak ada data' : 'Durasi: ' + ctx.parsed.y + ' menit', 30, 5)
                 });
 
                 // Grafik RPM
@@ -319,8 +317,8 @@
                             tension: 0.4
                         }]
                     },
-                    options: chartOptions('RPM', (ctx) => ctx.parsed.y === 0 ? 'RPM: libur' : 'RPM: ' +
-                        ctx.parsed.y + ' rpm')
+                    options: chartOptions('RPM (Revolutions Per Minute) Exercise', (ctx) => ctx.parsed.y === 0 ?
+                        'RPM: tidak ada data' : 'RPM: ' + ctx.parsed.y + ' rpm', 60, 10, 10)
                 });
             })();
         </script>

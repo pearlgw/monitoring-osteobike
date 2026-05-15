@@ -106,9 +106,9 @@
                     {{-- Grafik Durasi --}}
                     <div class="bg-white rounded-xl border border-slate-200 p-4">
                         <div class="flex items-center justify-between mb-4">
-                            <h2 class="font-bold text-sm text-slate-900">Grafik Durasi</h2>
+                            <h2 class="font-bold text-sm text-slate-900">Grafik Durasi Exercise</h2>
                             <span class="flex items-center gap-1.5 text-xs text-slate-500">
-                                <span class="w-2.5 h-2.5 rounded-sm bg-[#0EA5A4]"></span>menit
+                                <span class="w-2.5 h-2.5 rounded-sm bg-[#0EA5A4]"></span>Menit
                             </span>
                         </div>
                         <div style="position:relative;width:100%;height:240px;">
@@ -119,9 +119,9 @@
                     {{-- Grafik RPM --}}
                     <div class="bg-white rounded-xl border border-slate-200 p-4">
                         <div class="flex items-center justify-between mb-4">
-                            <h2 class="font-bold text-sm text-slate-900">Grafik RPM</h2>
+                            <h2 class="font-bold text-sm text-slate-900">Grafik Rpm(Revolutions Per Minute) Exercise</h2>
                             <span class="flex items-center gap-1.5 text-xs text-slate-500">
-                                <span class="w-2.5 h-2.5 rounded-sm border-2 border-dashed border-[#3B82F6]"></span>rpm
+                                <span class="w-2.5 h-2.5 rounded-sm border-2 border-dashed border-[#3B82F6]"></span>RPM
                             </span>
                         </div>
                         <div style="position:relative;width:100%;height:240px;">
@@ -218,7 +218,7 @@
 
                             ctx.save();
                             ctx.fillStyle = '#64748b';
-                            ctx.font = '600 12px sans-serif';
+                            ctx.font = '600 13px sans-serif';
                             ctx.textAlign = 'center';
                             ctx.textBaseline = 'middle';
                             ctx.fillText('Y', left, top - 10);
@@ -257,16 +257,16 @@
                                 },
                                 title: {
                                     display: true,
-                                    text: 'Tanggal',
+                                    text: 'Sesi Exercise',
                                     color: '#64748b',
                                     font: {
-                                        size: 12,
+                                        size: 13,
                                         weight: '600'
                                     }
                                 },
                                 ticks: {
                                     font: {
-                                        size: 11
+                                        size: 12
                                     },
                                     color: '#94a3b8',
                                     maxRotation: 45
@@ -280,27 +280,32 @@
                                 },
                                 ticks: {
                                     font: {
-                                        size: 11
+                                        size: 12
                                     },
                                     color: '#94a3b8',
-                                    stepSize: 10
+                                    stepSize: 5
                                 }
                             }
                         }
                     };
 
-                    const chartOptions = (yAxisTitle, tooltipLabel) => ({
+                    const chartOptions = (yAxisTitle, tooltipLabel, yMax, yStepSize, yAxisTitleFontSize = 13) => ({
                         ...commonOptions,
                         scales: {
                             ...commonOptions.scales,
                             y: {
                                 ...commonOptions.scales.y,
+                                max: yMax,
+                                ticks: {
+                                    ...commonOptions.scales.y.ticks,
+                                    stepSize: yStepSize
+                                },
                                 title: {
                                     display: true,
                                     text: yAxisTitle,
                                     color: '#64748b',
                                     font: {
-                                        size: 12,
+                                        size: yAxisTitleFontSize,
                                         weight: '600'
                                     }
                                 }
@@ -336,8 +341,8 @@
                                 tension: 0.4
                             }]
                         },
-                        options: chartOptions('Menit', (ctx) => ctx.parsed.y === 0 ?
-                            'Durasi: tidak ada data' : 'Durasi: ' + ctx.parsed.y + ' menit')
+                        options: chartOptions('Durasi (menit) Exercise', (ctx) => ctx.parsed.y === 0 ?
+                            'Durasi: tidak ada data' : 'Durasi: ' + ctx.parsed.y + ' menit', 30, 5)
                     });
 
                     // Grafik RPM
@@ -361,8 +366,8 @@
                                 tension: 0.4
                             }]
                         },
-                        options: chartOptions('RPM', (ctx) => ctx.parsed.y === 0 ?
-                            'RPM: tidak ada data' : 'RPM: ' + ctx.parsed.y + ' rpm')
+                        options: chartOptions('RPM (Revolutions Per Minute) Exercise', (ctx) => ctx.parsed.y === 0 ?
+                            'RPM: tidak ada data' : 'RPM: ' + ctx.parsed.y + ' rpm', 60, 10, 10)
                     });
                 })();
             </script>
