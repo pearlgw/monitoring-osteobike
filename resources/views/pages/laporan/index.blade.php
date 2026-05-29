@@ -150,12 +150,47 @@
 
             <input type="hidden" name="chart_durasi_img" id="chartDurasiImg">
             <input type="hidden" name="chart_rpm_img" id="chartRpmImg">
+            <input type="hidden" name="tipe_laporan" id="tipeLaporan" value="lengkap">
 
-            <button type="button" onclick="downloadPDF()"
+            <button type="button" onclick="openDownloadModal()"
                 class="mt-4 inline-flex items-center gap-2 bg-[#0EA5A4] text-white px-4 py-2 rounded-lg">
                 Download PDF
             </button>
         </form>
+
+        <div id="downloadModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/45 px-4">
+            <div class="w-full max-w-md rounded-xl bg-white shadow-xl border border-slate-200">
+                <div class="flex items-center justify-between border-b border-slate-100 px-5 py-4">
+                    <div>
+                        <h2 class="text-sm font-bold text-slate-900">Pilih Data Laporan</h2>
+                        <p class="mt-0.5 text-xs text-slate-500">Tentukan informasi yang ingin dicetak ke PDF.</p>
+                    </div>
+                    <button type="button" onclick="closeDownloadModal()"
+                        class="inline-flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 hover:bg-slate-100 hover:text-slate-700"
+                        aria-label="Tutup modal">
+                        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 6 6 18" />
+                            <path d="m6 6 12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="space-y-3 px-5 py-4">
+                    <button type="button" onclick="downloadPDF('lengkap')"
+                        class="w-full rounded-lg border border-slate-200 px-4 py-3 text-left transition hover:border-[#0EA5A4] hover:bg-[rgba(14,165,164,0.06)]">
+                        <span class="block text-sm font-semibold text-slate-800">Data lengkap</span>
+                        <span class="mt-0.5 block text-xs text-slate-500">Cetak ROM, RPM, dan durasi.</span>
+                    </button>
+
+                    <button type="button" onclick="downloadPDF('durasi_saja')"
+                        class="w-full rounded-lg border border-slate-200 px-4 py-3 text-left transition hover:border-[#0EA5A4] hover:bg-[rgba(14,165,164,0.06)]">
+                        <span class="block text-sm font-semibold text-slate-800">Durasi saja</span>
+                        <span class="mt-0.5 block text-xs text-slate-500">Cetak laporan tanpa kolom ROM dan RPM.</span>
+                    </button>
+                </div>
+            </div>
+        </div>
     @endisset
 
 @endsection
@@ -369,12 +404,25 @@
                 })();
             </script>
             <script>
-                function downloadPDF() {
+                function openDownloadModal() {
+                    const modal = document.getElementById('downloadModal');
+                    modal.classList.remove('hidden');
+                    modal.classList.add('flex');
+                }
+
+                function closeDownloadModal() {
+                    const modal = document.getElementById('downloadModal');
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                }
+
+                function downloadPDF(tipeLaporan) {
                     const durasiCanvas = document.getElementById('durasiChart');
                     const rpmCanvas = document.getElementById('rpmChart');
 
                     document.getElementById('chartDurasiImg').value = durasiCanvas.toDataURL('image/png');
                     document.getElementById('chartRpmImg').value = rpmCanvas.toDataURL('image/png');
+                    document.getElementById('tipeLaporan').value = tipeLaporan;
 
                     document.getElementById('downloadForm').submit();
                 }

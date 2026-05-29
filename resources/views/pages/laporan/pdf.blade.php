@@ -314,6 +314,9 @@
 </head>
 
 <body>
+    @php
+        $isDurasiSaja = ($tipe_laporan ?? 'lengkap') === 'durasi_saja';
+    @endphp
 
     <div class="watermark">Osteobike</div>
 
@@ -397,12 +400,14 @@
         </div>
         <div class="chart-caption">Gambar 1. Grafik rata-rata durasi terapi per tanggal (menit)</div>
 
-        {{-- III. Grafik & Tabel RPM --}}
-        <div class="sub-title">III.&nbsp;&nbsp;Grafik RPM Terapi</div>
-        <div style="text-align: center;">
-            <img class="chart-img" src="{{ $chart_rpm_img }}" alt="Grafik RPM">
-        </div>
-        <div class="chart-caption">Gambar 2. Grafik rata-rata RPM terapi per tanggal (rotasi per menit)</div>
+        @unless ($isDurasiSaja)
+            {{-- III. Grafik & Tabel RPM --}}
+            <div class="sub-title">III.&nbsp;&nbsp;Grafik RPM Terapi</div>
+            <div style="text-align: center;">
+                <img class="chart-img" src="{{ $chart_rpm_img }}" alt="Grafik RPM">
+            </div>
+            <div class="chart-caption">Gambar 2. Grafik rata-rata RPM terapi per tanggal (rotasi per menit)</div>
+        @endunless
 
         <hr class="divider">
 
@@ -411,8 +416,10 @@
                 <tr>
                     <th style="width:32px;">No.</th>
                     <th>Diagnosa</th>
-                    <th>ROM (°)</th>
-                    <th>RPM</th>
+                    @unless ($isDurasiSaja)
+                        <th>ROM (°)</th>
+                        <th>RPM</th>
+                    @endunless
                     <th>Durasi (mnt)</th>
                     <th>Berat (kg)</th>
                     <th>Tanggal</th>
@@ -423,8 +430,10 @@
                     <tr>
                         <td>{{ $i + 1 }}</td>
                         <td class="left">{{ $item->diagnosa ?? '-' }}</td>
-                        <td>{{ $item->rom ?? '-' }}</td>
-                        <td>{{ $item->rpm ?? '-' }}</td>
+                        @unless ($isDurasiSaja)
+                            <td>{{ $item->rom ?? '-' }}</td>
+                            <td>{{ $item->rpm ?? '-' }}</td>
+                        @endunless
                         <td>{{ $item->durasi ?? '-' }}</td>
                         <td>{{ $item->berat_badan ?? '-' }}</td>
                         <td>{{ \Carbon\Carbon::parse($item->tanggal_terapi)->isoFormat('D MMM YYYY') }}</td>

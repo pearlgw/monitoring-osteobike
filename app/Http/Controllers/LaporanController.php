@@ -74,6 +74,13 @@ class LaporanController extends Controller
 
     public function download(Request $request)
     {
+        $request->validate([
+            'kode_pasien'    => 'required|string',
+            'tanggal_start'  => 'required|date',
+            'tanggal_akhir'  => 'required|date|after_or_equal:tanggal_start',
+            'tipe_laporan'   => 'nullable|in:lengkap,durasi_saja',
+        ]);
+
         $pasien = User::where('kode_pasien', $request->kode_pasien)
             ->where('role', 'pasien')
             ->firstOrFail();
@@ -92,6 +99,7 @@ class LaporanController extends Controller
             'tanggal_akhir'    => $request->tanggal_akhir,
             'chart_durasi_img' => $request->chart_durasi_img,
             'chart_rpm_img'   => $request->chart_rpm_img,
+            'tipe_laporan'     => $request->input('tipe_laporan', 'lengkap'),
             'terapiData'       => $terapiData,
         ];
 
