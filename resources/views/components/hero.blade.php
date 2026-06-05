@@ -87,7 +87,7 @@
             </div>
 
             {{-- ✅ GANTI PATH DI SINI --}}
-            <img src="{{ asset('images/alat.jpeg') }}" alt="Osteobike"
+            <img src="{{ asset('images/new_alat.jpeg') }}" alt="Osteobike"
                 class="w-full max-w-[360px] object-contain rounded-[20px]" />
 
             {{-- Floating pill bottom-right --}}

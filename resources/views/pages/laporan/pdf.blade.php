@@ -67,7 +67,7 @@
             text-align: center;
             line-height: 1;
             padding-top: 8px;
-            background-image: url('{{ public_path('images/logo.jpeg') }}');
+            background-image: url('{{ public_path('images/new_logo.jpeg') }}');
             background-repeat: no-repeat;
             background-position: center;
             background-size: contain;

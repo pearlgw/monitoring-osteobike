@@ -30,7 +30,7 @@
             </div> --}}
             {{-- Logo 1 --}}
             <div class="w-10 h-10 bg-white rounded-lg shadow-sm flex items-center justify-center overflow-hidden">
-                <img src="/images/logo.jpeg" alt="Logo 1" class="w-full h-full object-contain">
+                <img src="/images/new_logo.jpeg" alt="Logo 1" class="w-full h-full object-contain">
             </div>
 
             {{-- Logo 2 --}}
@@ -42,6 +42,12 @@
             <div class="w-10 h-10 bg-white rounded-lg shadow-sm flex items-center justify-center overflow-hidden">
                 <img src="/images/udinus.png" alt="Logo 3" class="w-full h-full object-contain">
             </div>
+
+            {{-- Logo 4 --}}
+            <div class="w-10 h-10 bg-white rounded-lg shadow-sm flex items-center justify-center overflow-hidden">
+                <img src="/images/logo_unggul.jpeg" alt="Logo 4" class="w-full h-full object-contain">
+            </div>
+
             <span class="font-black text-base text-slate-900" style="font-family:'Syne',sans-serif;">
                 Osteo<span class="text-[#0EA5A4]">bike</span>
             </span>
