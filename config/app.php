@@ -124,4 +124,5 @@ return [
     ],
 
     'api_key' => env('API_KEY', ''),
+    'activate_rom' => (bool) env('ACTIVATE_ROM', env('activate_rom', false)),
 ];

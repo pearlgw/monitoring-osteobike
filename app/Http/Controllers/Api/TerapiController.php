@@ -10,11 +10,16 @@ class TerapiController extends Controller
 {
     public function updateHasil(Request $request)
     {
-        $request->validate([
+        $rules = [
             'rpm'  => 'required|integer',
-            'rom'  => 'required|integer',
             'durasi' => 'required|integer',
-        ]);
+        ];
+
+        if (config('app.activate_rom')) {
+            $rules['rom'] = 'required|integer';
+        }
+
+        $request->validate($rules);
 
         $terapi = DetailTerapi::where('status', 'belum')->first();
 
@@ -25,12 +30,17 @@ class TerapiController extends Controller
             ], 404);
         }
 
-        $terapi->update([
+        $data = [
             'rpm'    => $request->rpm,
-            'rom'    => $request->rom,
             'durasi' => $request->durasi,
             'status' => 'sudah',
-        ]);
+        ];
+
+        if (config('app.activate_rom')) {
+            $data['rom'] = $request->rom;
+        }
+
+        $terapi->update($data);
 
         return response()->json([
             'success' => true,

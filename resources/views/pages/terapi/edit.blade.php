@@ -164,16 +164,18 @@
                             @enderror
                         </div>
 
-                        <div class="col-span-2">
-                            <label
-                                class="block text-[11px] font-medium text-slate-500 uppercase tracking-wide mb-1.5">ROM</label>
-                            <input type="text" name="rom" value="{{ old('rom', $terapi->rom) }}"
-                                placeholder="Contoh: 0-120°"
-                                class="w-full px-3.5 py-2.5 text-[13px] border border-slate-200 rounded-[9px] outline-none bg-slate-50 focus:bg-white focus:border-[#0EA5A4] focus:ring-2 focus:ring-[rgba(14,165,164,0.1)] text-slate-800 placeholder:text-slate-400">
-                            @error('rom')
-                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
+                        @if (config('app.activate_rom'))
+                            <div class="col-span-2">
+                                <label
+                                    class="block text-[11px] font-medium text-slate-500 uppercase tracking-wide mb-1.5">ROM</label>
+                                <input type="text" name="rom" value="{{ old('rom', $terapi->rom) }}"
+                                    placeholder="Contoh: 0-120°"
+                                    class="w-full px-3.5 py-2.5 text-[13px] border border-slate-200 rounded-[9px] outline-none bg-slate-50 focus:bg-white focus:border-[#0EA5A4] focus:ring-2 focus:ring-[rgba(14,165,164,0.1)] text-slate-800 placeholder:text-slate-400">
+                                @error('rom')
+                                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -208,7 +210,9 @@
                     <div class="space-y-2.5 text-[12px] text-slate-500 leading-relaxed">
                         <p>• Field bertanda <span class="text-red-400 font-medium">*</span> wajib diisi</p>
                         <p>• RPM hanya diisi untuk metode <strong class="text-slate-700">Aktif</strong></p>
-                        <p>• ROM diisi dalam format derajat</p>
+                        @if (config('app.activate_rom'))
+                            <p>• ROM diisi dalam format derajat</p>
+                        @endif
                     </div>
                 </div>
                 <div class="bg-white rounded-xl border border-slate-200 p-4 flex flex-col gap-2">

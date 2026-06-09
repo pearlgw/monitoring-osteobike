@@ -35,7 +35,9 @@
             <ul class="space-y-2 text-sm text-gray-600 leading-relaxed list-disc pl-5">
                 <li>Mengurangi nyeri dan kekakuan sendi melalui latihan terkontrol dan berulang.</li>
                 <li>Meningkatkan kekuatan otot terutama pada area lutut dan panggul.</li>
-                <li>Memperbaiki rentang gerak (Range of Motion/ROM) secara bertahap.</li>
+                @if (config('app.activate_rom'))
+                    <li>Memperbaiki rentang gerak (Range of Motion/ROM) secara bertahap.</li>
+                @endif
                 <li>Memberikan latihan aman dengan beban minimal pada sendi.</li>
                 <li>Meningkatkan kemandirian pasien dalam menjalani terapi.</li>
                 <li>Memungkinkan pemantauan progres latihan secara digital dan real-time.</li>

@@ -7,7 +7,7 @@ Sistem ini dibuat menggunakan Laravel untuk membantu admin memantau data pasien,
 1. Admin login ke sistem.
 2. Admin mengelola data pasien.
 3. Admin membuat atau mengelola sesi terapi pasien.
-4. Data hasil terapi berisi durasi, RPM, ROM, metode terapi, dan status terapi.
+4. Data hasil terapi berisi durasi, RPM, metode terapi, dan status terapi. Jika `activate_rom=true`, data ROM ikut aktif.
 5. Dashboard menampilkan ringkasan data dan grafik 7 hari terakhir.
 6. Halaman laporan menampilkan grafik berdasarkan kode pasien dan rentang tanggal.
 7. Laporan dapat diunduh dalam bentuk PDF.
@@ -41,7 +41,7 @@ Kolom utama:
 - `metode`: metode terapi, yaitu `Pasif` atau `Aktif`.
 - `rpm`: kecepatan putaran terapi.
 - `durasi`: lama terapi dalam menit.
-- `rom`: range of motion.
+- `rom`: range of motion, aktif jika `activate_rom=true`.
 - `status`: status terapi, yaitu `belum` atau `sudah`.
 
 ### `pengingat_terapis`
@@ -141,7 +141,7 @@ Fungsi utama:
 Mengatur pengiriman hasil terapi dari perangkat atau sistem luar.
 
 Fungsi utama:
-- Menerima data `rpm`, `rom`, dan `durasi`.
+- Menerima data `rpm` dan `durasi`. Jika `activate_rom=true`, menerima `rom`.
 - Mencari sesi terapi yang masih berstatus `belum`.
 - Mengupdate hasil terapi.
 - Mengubah status terapi menjadi `sudah`.
@@ -171,7 +171,7 @@ Route API berada di `routes/api.php`.
 Endpoint utama:
 - `POST /api/terapi/kirim-hasil`
 
-Endpoint ini digunakan untuk mengirim hasil terapi berupa RPM, ROM, dan durasi. Endpoint dilindungi middleware `api.key`.
+Endpoint ini digunakan untuk mengirim hasil terapi berupa RPM dan durasi. Jika `activate_rom=true`, endpoint juga menerima ROM. Endpoint dilindungi middleware `api.key`.
 
 ## View
 
@@ -262,7 +262,7 @@ Fungsi:
 1. Admin membuat data pasien.
 2. Admin membuat data terapi untuk pasien.
 3. Data terapi tersimpan di tabel `detail_terapis`.
-4. Jika perangkat mengirim hasil terapi, API menerima data RPM, ROM, dan durasi.
+4. Jika perangkat mengirim hasil terapi, API menerima data RPM dan durasi. Jika `activate_rom=true`, API juga menerima ROM.
 5. Sistem mengupdate terapi yang masih berstatus `belum`.
 6. Status terapi berubah menjadi `sudah`.
 7. Data terapi ditampilkan di dashboard dan laporan.
@@ -540,7 +540,8 @@ public function updateHasil(Request $request)
 {
     $request->validate([
         'rpm' => 'required|integer',
-        'rom' => 'required|integer',
+        // Aktif jika activate_rom=true:
+        // 'rom' => 'required|integer',
         'durasi' => 'required|integer',
     ]);
 
@@ -555,7 +556,8 @@ public function updateHasil(Request $request)
 
     $terapi->update([
         'rpm' => $request->rpm,
-        'rom' => $request->rom,
+        // Aktif jika activate_rom=true:
+        // 'rom' => $request->rom,
         'durasi' => $request->durasi,
         'status' => 'sudah',
     ]);

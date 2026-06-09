@@ -350,7 +350,9 @@
                     ['Tanggal Terapi', tglFormatted],
                     ['Berat Badan', (t.berat_badan ?? '-') + ' kg'],
                     ['Diagnosa', t.diagnosa ?? '-'],
-                    ['ROM', t.rom ?? '-'],
+                    @if (config('app.activate_rom'))
+                        ['ROM', t.rom ?? '-'],
+                    @endif
                     ['RPM', t.rpm ?? '-'],
                     ['Durasi', t.durasi ? t.durasi + ' menit' : '-'],
                 ];

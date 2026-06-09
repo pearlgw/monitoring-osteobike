@@ -38,7 +38,7 @@ class DetailTerapiController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $rules = [
             'user_id'        => 'required|exists:users,id',
             'tanggal_terapi' => 'required|date',
             'berat_badan'    => 'required|integer|min:1',
@@ -46,10 +46,9 @@ class DetailTerapiController extends Controller
             'metode'         => 'required|in:Pasif,Aktif',
             'rpm'            => 'nullable|integer|min:0',
             'durasi'         => 'nullable|integer|min:0',
-            'rom'            => 'nullable|string|max:50',
-        ]);
+        ];
 
-        DetailTerapi::create($request->only([
+        $fields = [
             'user_id',
             'tanggal_terapi',
             'berat_badan',
@@ -57,8 +56,16 @@ class DetailTerapiController extends Controller
             'metode',
             'rpm',
             'durasi',
-            'rom',
-        ]));
+        ];
+
+        if (config('app.activate_rom')) {
+            $rules['rom'] = 'nullable|string|max:50';
+            $fields[] = 'rom';
+        }
+
+        $request->validate($rules);
+
+        DetailTerapi::create($request->only($fields));
 
         return redirect()->route('terapi.index')
             ->with('success', 'Sesi terapi berhasil ditambahkan.');
@@ -72,7 +79,7 @@ class DetailTerapiController extends Controller
 
     public function update(Request $request, DetailTerapi $terapi)
     {
-        $request->validate([
+        $rules = [
             'user_id'        => 'required|exists:users,id',
             'tanggal_terapi' => 'required|date',
             'berat_badan'    => 'required|integer|min:1',
@@ -80,10 +87,9 @@ class DetailTerapiController extends Controller
             'metode'         => 'required|in:Pasif,Aktif',
             'rpm'            => 'nullable|integer|min:0',
             'durasi'         => 'nullable|integer|min:0',
-            'rom'            => 'nullable|string|max:50',
-        ]);
+        ];
 
-        $terapi->update($request->only([
+        $fields = [
             'user_id',
             'tanggal_terapi',
             'berat_badan',
@@ -91,8 +97,16 @@ class DetailTerapiController extends Controller
             'metode',
             'rpm',
             'durasi',
-            'rom',
-        ]));
+        ];
+
+        if (config('app.activate_rom')) {
+            $rules['rom'] = 'nullable|string|max:50';
+            $fields[] = 'rom';
+        }
+
+        $request->validate($rules);
+
+        $terapi->update($request->only($fields));
 
         return redirect()->route('terapi.index')
             ->with('success', 'Data terapi berhasil diperbarui.');

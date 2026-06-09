@@ -180,13 +180,17 @@
                     <button type="button" onclick="downloadPDF('lengkap')"
                         class="w-full rounded-lg border border-slate-200 px-4 py-3 text-left transition hover:border-[#0EA5A4] hover:bg-[rgba(14,165,164,0.06)]">
                         <span class="block text-sm font-semibold text-slate-800">Data lengkap</span>
-                        <span class="mt-0.5 block text-xs text-slate-500">Cetak ROM, RPM, dan durasi.</span>
+                        <span class="mt-0.5 block text-xs text-slate-500">
+                            Cetak {{ config('app.activate_rom') ? 'ROM, ' : '' }}RPM dan durasi.
+                        </span>
                     </button>
 
                     <button type="button" onclick="downloadPDF('durasi_saja')"
                         class="w-full rounded-lg border border-slate-200 px-4 py-3 text-left transition hover:border-[#0EA5A4] hover:bg-[rgba(14,165,164,0.06)]">
                         <span class="block text-sm font-semibold text-slate-800">Durasi saja</span>
-                        <span class="mt-0.5 block text-xs text-slate-500">Cetak laporan tanpa kolom ROM dan RPM.</span>
+                        <span class="mt-0.5 block text-xs text-slate-500">
+                            Cetak laporan tanpa kolom {{ config('app.activate_rom') ? 'ROM dan ' : '' }}RPM.
+                        </span>
                     </button>
                 </div>
             </div>

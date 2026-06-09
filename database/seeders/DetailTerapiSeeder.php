@@ -25,7 +25,7 @@ class DetailTerapiSeeder extends Seeder
 
                 $usedDates[] = $date;
 
-                $data[] = [
+                $detailTerapi = [
                     'user_id' => $userId,
                     'tanggal_terapi' => $date,
                     'berat_badan' => rand(50, 80),
@@ -33,11 +33,16 @@ class DetailTerapiSeeder extends Seeder
                     'metode' => rand(0, 1) ? 'Aktif' : 'Pasif',
                     'rpm' => rand(30, 55),
                     'durasi' => rand(3, 30),
-                    'rom' => rand(70, 110),
                     'status' => 'sudah',
                     'created_at' => now(),
                     'updated_at' => now(),
                 ];
+
+                if (config('app.activate_rom')) {
+                    $detailTerapi['rom'] = rand(70, 110);
+                }
+
+                $data[] = $detailTerapi;
             }
         }
 

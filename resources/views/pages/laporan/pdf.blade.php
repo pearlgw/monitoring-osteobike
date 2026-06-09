@@ -417,7 +417,9 @@
                     <th style="width:32px;">No.</th>
                     <th>Diagnosa</th>
                     @unless ($isDurasiSaja)
-                        <th>ROM (°)</th>
+                        @if (config('app.activate_rom'))
+                            <th>ROM (°)</th>
+                        @endif
                         <th>RPM</th>
                     @endunless
                     <th>Durasi (mnt)</th>
@@ -431,7 +433,9 @@
                         <td>{{ $i + 1 }}</td>
                         <td class="left">{{ $item->diagnosa ?? '-' }}</td>
                         @unless ($isDurasiSaja)
-                            <td>{{ $item->rom ?? '-' }}</td>
+                            @if (config('app.activate_rom'))
+                                <td>{{ $item->rom ?? '-' }}</td>
+                            @endif
                             <td>{{ $item->rpm ?? '-' }}</td>
                         @endunless
                         <td>{{ $item->durasi ?? '-' }}</td>
