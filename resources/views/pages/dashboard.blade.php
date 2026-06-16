@@ -120,7 +120,7 @@
         {{-- Grafik RPM --}}
         <div class="bg-white rounded-xl border border-slate-200 p-4">
             <div class="flex items-center justify-between mb-4">
-                <h2 class="font-bold text-sm text-slate-900">Grafik Rpm(Rotation per Minute) Exercise (7 Hari)</h2>
+                <h2 class="font-bold text-sm text-slate-900">Grafik Rpm(<i>Rotation per Minute</i>) Exercise (7 Hari)</h2>
                 <span class="flex items-center gap-1.5 text-xs text-slate-500">
                     <span class="w-2.5 h-2.5 rounded-sm border-2 border-dashed border-[#3B82F6]"></span>RPM
                 </span>
@@ -317,7 +317,7 @@
                             tension: 0.4
                         }]
                     },
-                    options: chartOptions('RPM (Rotation Per Minute) Exercise', (ctx) => ctx.parsed.y === 0 ?
+                    options: chartOptions('RPM (<i>Rotation Per Minute</i>) Exercise', (ctx) => ctx.parsed.y === 0 ?
                         'RPM: tidak ada data' : 'RPM: ' + ctx.parsed.y + ' rpm', 60, 10, 10)
                 });
             })();
