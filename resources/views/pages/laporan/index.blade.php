@@ -402,7 +402,7 @@
                                 tension: 0.4
                             }]
                         },
-                        options: chartOptions('RPM (<i>Rotation per Minute</i>) Exercise', (ctx) => ctx.parsed.y === 0 ?
+                        options: chartOptions('RPM (Rotation per Minute) Exercise', (ctx) => ctx.parsed.y === 0 ?
                             'RPM: tidak ada data' : 'RPM: ' + ctx.parsed.y + ' rpm', 60, 10, 10)
                     });
                 })();
