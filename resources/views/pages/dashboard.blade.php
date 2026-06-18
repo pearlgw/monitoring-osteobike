@@ -112,7 +112,7 @@
                     <span class="w-2.5 h-2.5 rounded-sm bg-[#0EA5A4]"></span>Menit
                 </span>
             </div>
-            <div style="position:relative;width:100%;height:240px;">
+            <div style="position:relative;width:100%;height:420px;">
                 <canvas id="durasiChart" role="img" aria-label="Grafik durasi terapi 7 hari terakhir"></canvas>
             </div>
         </div>
@@ -125,7 +125,7 @@
                     <span class="w-2.5 h-2.5 rounded-sm border-2 border-dashed border-[#3B82F6]"></span>RPM
                 </span>
             </div>
-            <div style="position:relative;width:100%;height:240px;">
+            <div style="position:relative;width:100%;height:420px;">
                 <canvas id="rpmChart" role="img" aria-label="Grafik RPM terapi 7 hari terakhir"></canvas>
             </div>
         </div>
@@ -174,6 +174,56 @@
                         ctx.textBaseline = 'middle';
                         ctx.fillText('Y', left, top - 10);
                         ctx.fillText('X', right + 12, bottom);
+                        ctx.restore();
+                    }
+                };
+
+                const mixedYAxisTitle = {
+                    id: 'mixedYAxisTitle',
+                    afterDraw(chart, args, options) {
+                        const segments = options?.segments;
+
+                        if (!segments?.length) {
+                            return;
+                        }
+
+                        const {
+                            ctx,
+                            chartArea: {
+                                left,
+                                top,
+                                bottom
+                            }
+                        } = chart;
+                        const fontSize = options.fontSize || 13;
+                        const fontWeight = '600';
+                        const fontFamily = 'sans-serif';
+
+                        ctx.save();
+                        ctx.fillStyle = '#64748b';
+                        ctx.textAlign = 'left';
+                        ctx.textBaseline = 'middle';
+
+                        const measuredSegments = segments.map((segment) => {
+                            ctx.font = `${segment.style || 'normal'} ${fontWeight} ${fontSize}px ${fontFamily}`;
+
+                            return {
+                                ...segment,
+                                width: ctx.measureText(segment.text).width
+                            };
+                        });
+                        const totalWidth = measuredSegments.reduce((sum, segment) => sum + segment.width, 0);
+
+                        ctx.translate(Math.max(16, left - 48), (top + bottom) / 2);
+                        ctx.rotate(-Math.PI / 2);
+
+                        let currentX = -totalWidth / 2;
+                        measuredSegments.forEach((segment) => {
+                            ctx.font = `${segment.style || 'normal'} ${fontWeight} ${fontSize}px ${fontFamily}`;
+                            ctx.fillText(segment.text, currentX, 0);
+                            currentX += segment.width;
+                        });
+
                         ctx.restore();
                     }
                 };
@@ -240,10 +290,21 @@
                     }
                 };
 
-                const chartOptions = (yAxisTitle, tooltipLabel, yMax, yStepSize, yAxisTitleFontSize = 13) => ({
+                const chartOptions = (yAxisTitle, tooltipLabel, yMax, yStepSize, yAxisTitleFontSize = 13, yAxisTitleSegments = null) => ({
                     ...commonOptions,
+                    layout: {
+                        ...commonOptions.layout,
+                        padding: {
+                            ...commonOptions.layout.padding,
+                            left: yAxisTitleSegments ? 28 : 0
+                        }
+                    },
                     plugins: {
                         ...commonOptions.plugins,
+                        mixedYAxisTitle: {
+                            segments: yAxisTitleSegments,
+                            fontSize: yAxisTitleFontSize
+                        },
                         tooltip: {
                             ...commonOptions.plugins.tooltip,
                             callbacks: {
@@ -255,13 +316,15 @@
                         ...commonOptions.scales,
                         y: {
                             ...commonOptions.scales.y,
+                            min: 0,
                             max: yMax,
                             ticks: {
                                 ...commonOptions.scales.y.ticks,
-                                stepSize: yStepSize
+                                stepSize: yStepSize,
+                                autoSkip: false
                             },
                             title: {
-                                display: true,
+                                display: !yAxisTitleSegments,
                                 text: yAxisTitle,
                                 color: '#64748b',
                                 font: {
@@ -276,7 +339,7 @@
                 // Grafik Durasi
                 new Chart(document.getElementById('durasiChart'), {
                     type: 'line',
-                    plugins: [axisEndpointLabels],
+                    plugins: [axisEndpointLabels, mixedYAxisTitle],
                     data: {
                         labels,
                         datasets: [{
@@ -299,7 +362,7 @@
                 // Grafik RPM
                 new Chart(document.getElementById('rpmChart'), {
                     type: 'line',
-                    plugins: [axisEndpointLabels],
+                    plugins: [axisEndpointLabels, mixedYAxisTitle],
                     data: {
                         labels,
                         datasets: [{
@@ -318,7 +381,14 @@
                         }]
                     },
                     options: chartOptions('RPM (Rotation Per Minute) Exercise', (ctx) => ctx.parsed.y === 0 ?
-                        'RPM: tidak ada data' : 'RPM: ' + ctx.parsed.y + ' rpm', 60, 10, 10)
+                        'RPM: tidak ada data' : 'RPM: ' + ctx.parsed.y + ' rpm', 150, 15, 10, [{
+                            text: 'RPM ('
+                        }, {
+                            text: 'Rotation per Minute',
+                            style: 'italic'
+                        }, {
+                            text: ') Exercise'
+                        }])
                 });
             })();
         </script>

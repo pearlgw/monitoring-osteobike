@@ -181,7 +181,7 @@
 
         /* ─── GRAFIK ─── */
         .chart-img {
-            width: 80%;
+            width: 95%;
             border: 1px solid #ccc;
         }
 

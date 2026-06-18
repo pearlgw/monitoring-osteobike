@@ -11,12 +11,12 @@ class TerapiController extends Controller
     public function updateHasil(Request $request)
     {
         $rules = [
-            'rpm'  => 'required|integer',
-            'durasi' => 'required|integer',
+            'rpm'  => 'integer',
+            'durasi' => 'integer',
         ];
 
         if (config('app.activate_rom')) {
-            $rules['rom'] = 'required|integer';
+            $rules['rom'] = 'integer';
         }
 
         $request->validate($rules);
