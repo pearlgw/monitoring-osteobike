@@ -111,6 +111,22 @@
                             @enderror
                         </div>
 
+                        <div>
+                            <label class="block text-[11px] font-medium text-slate-500 uppercase tracking-wide mb-1.5">
+                                Status <span class="text-red-400">*</span>
+                            </label>
+                            <select name="status" required
+                                class="w-full px-3.5 py-2.5 text-[13px] border border-slate-200 rounded-[9px] outline-none bg-slate-50 focus:bg-white focus:border-[#0EA5A4] text-slate-700">
+                                <option value="belum" {{ old('status', $terapi->status) === 'belum' ? 'selected' : '' }}>
+                                    Belum</option>
+                                <option value="sudah" {{ old('status', $terapi->status) === 'sudah' ? 'selected' : '' }}>
+                                    Sudah</option>
+                            </select>
+                            @error('status')
+                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+
                         <div class="col-span-2">
                             <label class="block text-[11px] font-medium text-slate-500 uppercase tracking-wide mb-1.5">
                                 Diagnosa <span class="text-red-400">*</span>
@@ -210,6 +226,7 @@
                     <div class="space-y-2.5 text-[12px] text-slate-500 leading-relaxed">
                         <p>• Field bertanda <span class="text-red-400 font-medium">*</span> wajib diisi</p>
                         <p>• RPM hanya diisi untuk metode <strong class="text-slate-700">Aktif</strong></p>
+                        <p>• Status menentukan apakah terapi sudah selesai dilakukan</p>
                         @if (config('app.activate_rom'))
                             <p>• ROM diisi dalam format derajat</p>
                         @endif

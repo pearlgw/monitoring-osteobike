@@ -85,6 +85,7 @@ class DetailTerapiController extends Controller
             'berat_badan'    => 'required|integer|min:1',
             'diagnosa'       => 'required|string',
             'metode'         => 'required|in:Pasif,Aktif',
+            'status'         => 'required|in:belum,sudah',
             'rpm'            => 'nullable|integer|min:0',
             'durasi'         => 'nullable|integer|min:0',
         ];
@@ -95,6 +96,7 @@ class DetailTerapiController extends Controller
             'berat_badan',
             'diagnosa',
             'metode',
+            'status',
             'rpm',
             'durasi',
         ];
