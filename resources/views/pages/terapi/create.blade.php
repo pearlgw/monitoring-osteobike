@@ -106,6 +106,8 @@
                             @enderror
                         </div>
 
+                        @include('pages.terapi.partials.vas', ['value' => null])
+
                         {{-- Diagnosa --}}
                         <div class="col-span-2">
                             <label class="block text-[11px] font-medium text-slate-500 uppercase tracking-wide mb-1.5">

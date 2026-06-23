@@ -73,6 +73,7 @@
                     <th class="px-4 py-2.5 text-center">Metode</th>
                     <th class="px-4 py-2.5 text-center">RPM</th>
                     <th class="px-4 py-2.5 text-center">Durasi</th>
+                    <th class="px-4 py-2.5 text-center">VAS</th>
                     <th class="px-4 py-2.5 text-center">Status</th>
                     <th class="px-4 py-2.5 text-center">Aksi</th>
                 </tr>
@@ -131,6 +132,31 @@
                             {{ $terapi->durasi ? $terapi->durasi . ' mnt' : '-' }}
                         </td>
 
+                        {{-- VAS --}}
+                        <td class="px-4 py-3 text-center text-[13px] text-slate-600">
+                            @if (!is_null($terapi->vas))
+                                @php
+                                    $vas = (int) $terapi->vas;
+                                    $vasLabels = [
+                                        'Tidak Nyeri',
+                                        'Nyeri Ringan',
+                                        'Nyeri Ringan',
+                                        'Nyeri Ringan',
+                                        'Nyeri Sedang',
+                                        'Nyeri Sedang',
+                                        'Nyeri Sedang',
+                                        'Nyeri Parah',
+                                        'Nyeri Parah',
+                                        'Nyeri Parah',
+                                        'Nyeri Parah',
+                                    ];
+                                @endphp
+                                {{ $vas }} ({{ $vasLabels[$vas] ?? '-' }})
+                            @else
+                                <span class="text-slate-400">-</span>
+                            @endif
+                        </td>
+
                         {{-- Status --}}
                         <td class="px-4 py-3 text-center">
                             @if ($terapi->status === 'selesai')
@@ -185,7 +211,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="9" class="px-4 py-10 text-center text-slate-400 text-sm">
+                        <td colspan="10" class="px-4 py-10 text-center text-slate-400 text-sm">
                             <svg class="w-8 h-8 mx-auto mb-2 text-slate-300" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
                                 <circle cx="11" cy="11" r="8" />
@@ -346,6 +372,8 @@
                     }) :
                     '-';
 
+                const vasHtml = formatVas(t.vas);
+
                 const rows = [
                     ['Tanggal Terapi', tglFormatted],
                     ['Berat Badan', (t.berat_badan ?? '-') + ' kg'],
@@ -355,6 +383,7 @@
                     @endif
                     ['RPM', t.rpm ?? '-'],
                     ['Durasi', t.durasi ? t.durasi + ' menit' : '-'],
+                    ['VAS', vasHtml],
                 ];
 
                 document.getElementById('showBody').innerHTML = `
@@ -384,6 +413,17 @@
                 </div>
             `;
                 document.getElementById('showModal').classList.remove('hidden');
+            }
+
+            function formatVas(value) {
+                if (value === null || value === undefined || value === '') return '-';
+
+                const labels = ['Tidak Nyeri', 'Nyeri Ringan', 'Nyeri Ringan', 'Nyeri Ringan', 'Nyeri Sedang',
+                    'Nyeri Sedang', 'Nyeri Sedang', 'Nyeri Parah', 'Nyeri Parah', 'Nyeri Parah', 'Nyeri Parah'
+                ];
+                const vas = Number(value);
+
+                return `${vas} (${labels[vas] ?? '-'})`;
             }
 
             function openDelete(url, nama) {

@@ -46,6 +46,7 @@ class DetailTerapiController extends Controller
             'metode'         => 'required|in:Pasif,Aktif',
             'rpm'            => 'nullable|integer|min:0',
             'durasi'         => 'nullable|integer|min:0',
+            'vas' => 'nullable|integer|min:0|max:10',
         ];
 
         $fields = [
@@ -56,6 +57,7 @@ class DetailTerapiController extends Controller
             'metode',
             'rpm',
             'durasi',
+            'vas',
         ];
 
         if (config('app.activate_rom')) {
@@ -88,6 +90,7 @@ class DetailTerapiController extends Controller
             'status'         => 'required|in:belum,sudah',
             'rpm'            => 'nullable|integer|min:0',
             'durasi'         => 'nullable|integer|min:0',
+            'vas' => 'nullable|integer|min:0|max:10',
         ];
 
         $fields = [
@@ -99,6 +102,7 @@ class DetailTerapiController extends Controller
             'status',
             'rpm',
             'durasi',
+            'vas',
         ];
 
         if (config('app.activate_rom')) {

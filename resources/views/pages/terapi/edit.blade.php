@@ -127,6 +127,8 @@
                             @enderror
                         </div>
 
+                        @include('pages.terapi.partials.vas', ['value' => $terapi->vas])
+
                         <div class="col-span-2">
                             <label class="block text-[11px] font-medium text-slate-500 uppercase tracking-wide mb-1.5">
                                 Diagnosa <span class="text-red-400">*</span>

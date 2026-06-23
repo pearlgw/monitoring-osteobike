@@ -18,6 +18,7 @@ class DetailTerapi extends Model
         'metode',
         'rpm',
         'durasi',
+        'vas',
         'rom',
         'status',
     ];
