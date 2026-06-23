@@ -316,6 +316,19 @@
 <body>
     @php
         $isDurasiSaja = ($tipe_laporan ?? 'lengkap') === 'durasi_saja';
+        $vasLabels = [
+            0 => 'Tidak Nyeri',
+            1 => 'Nyeri Ringan',
+            2 => 'Nyeri Ringan',
+            3 => 'Nyeri Ringan',
+            4 => 'Nyeri Sedang',
+            5 => 'Nyeri Sedang',
+            6 => 'Nyeri Sedang',
+            7 => 'Nyeri Berat',
+            8 => 'Nyeri Berat',
+            9 => 'Nyeri Berat',
+            10 => 'Sangat Nyeri',
+        ];
     @endphp
 
     <div class="watermark">Osteobike</div>
@@ -424,6 +437,7 @@
                     @endunless
                     <th>Durasi (mnt)</th>
                     <th>Berat (kg)</th>
+                    <th>VAS</th>
                     <th>Tanggal</th>
                 </tr>
             </thead>
@@ -440,6 +454,14 @@
                         @endunless
                         <td>{{ $item->durasi ?? '-' }}</td>
                         <td>{{ $item->berat_badan ?? '-' }}</td>
+                        <td>
+                            @if (!is_null($item->vas))
+                                @php $vas = (int) $item->vas; @endphp
+                                {{ $vas }} ({{ $vasLabels[$vas] ?? '-' }})
+                            @else
+                                -
+                            @endif
+                        </td>
                         <td>{{ \Carbon\Carbon::parse($item->tanggal_terapi)->isoFormat('D MMM YYYY') }}</td>
                     </tr>
                 @endforeach

@@ -97,6 +97,14 @@
             </div>
 
         </div>
+
+        <div class="mt-8 md:w-1/2">
+            <a href="{{ asset('file/BUKU_PANDUAN_OSTEOBIKE.pdf') }}" download
+                class="inline-flex items-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold text-white shadow-md transition hover:-translate-y-0.5 hover:shadow-lg"
+                style="background: linear-gradient(135deg, #0EA5A4, #3B82F6);">
+                Download Buku Panduan
+            </a>
+        </div>
     </div>
 
     {{-- Divider section --}}
