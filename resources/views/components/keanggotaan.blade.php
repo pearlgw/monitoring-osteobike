@@ -9,7 +9,7 @@
     {{-- ===== ABOUT ===== --}}
     <div class="max-w-5xl mx-auto mb-20">
 
-        <p class="text-center text-xs font-semibold tracking-[3px] uppercase mb-3" style="color: #0EA5A4;">Tentang Kami
+        <p class="text-center text-xs font-semibold tracking-[3px] uppercase mb-3" style="color: #0EA5A4;">Buku Panduan
         </p>
 
         <h2 class="text-center font-extrabold text-4xl md:text-5xl leading-tight mb-6 text-gray-900">
