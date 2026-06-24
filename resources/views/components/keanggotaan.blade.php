@@ -6,104 +6,55 @@
     <div class="absolute -bottom-12 -right-12 w-60 h-60 rounded-full opacity-10 blur-3xl pointer-events-none"
         style="background-color: #3B82F6;"></div>
 
-    {{-- ===== ABOUT ===== --}}
+    {{-- ===== BUKU PANDUAN ===== --}}
     <div class="max-w-5xl mx-auto mb-20">
 
-        <p class="text-center text-xs font-semibold tracking-[3px] uppercase mb-3" style="color: #0EA5A4;">Buku Panduan
-        </p>
-
-        <h2 class="text-center font-extrabold text-4xl md:text-5xl leading-tight mb-6 text-gray-900">
-            Apa itu
-            <span class="bg-gradient-to-r from-[#0EA5A4] to-[#3B82F6] bg-clip-text text-transparent">
-                Osteobike?
-            </span>
-        </h2>
-
-        {{-- Divider --}}
-        <div class="flex items-center justify-center gap-3 mb-10">
-            <div class="h-px w-16 bg-gray-200"></div>
-            <div class="w-2 h-2 rounded-full" style="background-color: #0EA5A4;"></div>
-            <div class="h-px w-16 bg-gray-200"></div>
+        <div class="text-center mb-10">
+            <p class="text-xs font-semibold tracking-[3px] uppercase mb-3" style="color: #0EA5A4;">Dokumentasi</p>
+            <h2 class="font-extrabold text-3xl md:text-4xl text-gray-900 mb-4">
+                Buku
+                <span class="bg-gradient-to-r from-[#0EA5A4] to-[#3B82F6] bg-clip-text text-transparent">
+                    Panduan
+                </span>
+            </h2>
+            <p class="text-gray-500 max-w-2xl mx-auto text-sm">
+                Pelajari lebih lanjut tentang Osteobike melalui buku panduan komprehensif kami. Anda dapat membaca panduan secara langsung atau mengunduhnya untuk dibaca secara offline.
+            </p>
         </div>
 
-        {{-- About grid --}}
-        <div class="grid md:grid-cols-2 gap-10 items-center">
-
-            {{-- Teks --}}
-            <div class="text-left space-y-4">
-                <div class="text-gray-600 text-base leading-relaxed space-y-3 text-justify">
-                    <p>
-                        Osteoartritis (OA) adalah penyakit degeneratif sendi yang menyebabkan kerusakan tulang rawan,
-                        kekakuan, serta nyeri, terutama pada lutut dan panggul. Kondisi ini dapat menurunkan kemampuan
-                        gerak dan kualitas hidup penderitanya.
-                    </p>
-
-                    <p>
-                        Untuk membantu proses rehabilitasi, dikembangkan <span
-                            class="font-medium text-gray-700">Osteobike</span>,
-                        yaitu prototipe sepeda statis yang memungkinkan latihan dalam posisi duduk sehingga lebih aman
-                        dan mengurangi beban pada sendi.
-                    </p>
-
-                    <p>
-                        Sistem ini juga dilengkapi dengan teknologi berbasis web untuk memantau progres latihan pasien
-                        secara <span class="text-[#0EA5A4] font-medium">real-time</span>, sehingga terapi dapat
-                        dilakukan
-                        secara lebih terukur, aman, dan efektif.
-                    </p>
-
-                </div>
-
-                {{-- Stats --}}
-                {{-- <div class="grid grid-cols-3 gap-4 pt-4">
-                    <div class="text-center p-4 rounded-2xl" style="background-color: rgba(14,165,164,0.07);">
-                        <p class="font-extrabold text-2xl" style="color: #0EA5A4;">4</p>
-                        <p class="text-xs text-gray-500 mt-1">Anggota Tim</p>
-                    </div>
-                    <div class="text-center p-4 rounded-2xl" style="background-color: rgba(59,130,246,0.07);">
-                        <p class="font-extrabold text-2xl" style="color: #3B82F6;">Real-Time</p>
-                        <p class="text-xs text-gray-500 mt-1">Monitoring</p>
-                    </div>
-                    <div class="text-center p-4 rounded-2xl" style="background-color: rgba(245,158,11,0.07);">
-                        <p class="font-extrabold text-2xl" style="color: #F59E0B;">100%</p>
-                        <p class="text-xs text-gray-500 mt-1">Aman & Terukur</p>
-                    </div>
-                </div> --}}
-            </div>
-
-            {{-- Ilustrasi / Gambar --}}
-            <div class="relative">
-                <div
-                    class="rounded-2xl overflow-hidden border border-gray-100 shadow-lg aspect-video bg-gray-50 flex items-center justify-center">
-                    {{-- Ganti src dengan gambar project / alat osteobike --}}
-                    <img src="/images/about.jpeg" alt="Osteobike Device" class="w-full object-cover"
-                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    {{-- Fallback jika gambar belum ada --}}
-                    <div class="hidden flex-col items-center gap-2 text-gray-300 p-8">
-                        <svg class="w-16 h-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="3" y="3" width="18" height="18" rx="2" />
-                            <circle cx="8.5" cy="8.5" r="1.5" />
-                            <polyline points="21 15 16 10 5 21" />
+        {{-- PDF Preview & Download Button --}}
+        <div class="bg-white rounded-3xl p-4 md:p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100">
+            {{-- Toolbar with Download button --}}
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 px-2">
+                <div class="flex items-center gap-4">
+                    <div class="p-3 bg-teal-50 rounded-xl text-[#0EA5A4]">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                         </svg>
-                        <span class="text-sm">Gambar Osteobike</span>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-gray-900 text-lg">Buku Panduan Osteobike</h3>
+                        <p class="text-xs font-medium text-gray-500 mt-0.5">Dokumen PDF • 17 MB</p>
                     </div>
                 </div>
-                {{-- Badge float --}}
-                {{-- <div class="absolute -bottom-4 -left-4 px-4 py-2 rounded-xl shadow-md text-white text-xs font-semibold"
+                <a href="{{ asset('file/BUKU_PANDUAN_OSTEOBIKE.pdf') }}" download
+                    class="inline-flex self-start sm:self-center items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold text-white shadow-[0_4px_14px_0_rgba(14,165,164,0.39)] transition-all duration-300 hover:-translate-y-1 hover:scale-105 hover:shadow-[0_6px_20px_rgba(14,165,164,0.23)]"
                     style="background: linear-gradient(135deg, #0EA5A4, #3B82F6);">
-                    Inovasi Teknologi Kesehatan
-                </div> --}}
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                    Download
+                </a>
             </div>
 
-        </div>
-
-        <div class="mt-8 md:w-1/2">
-            <a href="{{ asset('file/BUKU_PANDUAN_OSTEOBIKE.pdf') }}" download
-                class="inline-flex items-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold text-white shadow-md transition hover:-translate-y-0.5 hover:shadow-lg"
-                style="background: linear-gradient(135deg, #0EA5A4, #3B82F6);">
-                Download Buku Panduan
-            </a>
+            {{-- PDF Preview --}}
+            <div class="relative w-full rounded-2xl overflow-hidden bg-gray-50 border border-gray-100 shadow-inner">
+                <iframe 
+                    src="{{ asset('file/BUKU_PANDUAN_OSTEOBIKE.pdf') }}#toolbar=0" 
+                    class="w-full border-none h-[500px] md:h-[700px]"
+                    title="Preview Buku Panduan Osteobike">
+                </iframe>
+            </div>
         </div>
     </div>
 
